@@ -1,0 +1,441 @@
+//ASSIGNMENT 5
+//Michael Lenehan
+//15410402
+
+ //C++//
+ 
+//Question 1
+#include <iostream>
+
+using namespace std;
+
+int countOnes(int n)
+{
+    if(n > 0)
+    {
+        return countOnes(n/10) + (n%10 == 1);
+    }
+    else return 0;
+
+}
+int main()
+{
+    cout << countOnes(101170);
+}
+
+//Question 2
+#include <iostream>
+
+using namespace std;
+
+bool isPowerOf(int num, const int base)
+{
+    if(num%base == 0){
+        if(num/base == 1) return true;
+        else return isPowerOf(num/base, base);}
+    else return false;
+}
+
+int main()
+{
+    cout << isPowerOf(32, 2);
+}
+
+//Question 3
+#include <iostream>
+
+using namespace std;
+
+class DataArray{
+private:
+    double* val;
+    int length;
+public:
+    DataArray(int len);
+    DataArray(double* a, int len);
+    virtual ~DataArray();
+};
+
+DataArray::DataArray(int len)
+{
+    val = new double[len];
+}
+
+DataArray::DataArray(double* a, int len)
+{
+    val = new double[len];
+    length = len;
+    for(int i = 0; i<length; i++)
+    {
+        this->val[i] = a[i];
+        cout << a[i] << endl;
+    }
+}
+
+DataArray::~DataArray()
+{
+    cout << "Array Deleted" << endl;
+}
+
+int main()
+{
+    double arr[] = {4, 2, 13, 12, 11};
+    DataArray *ptr1;
+    ptr1 = new DataArray(2);
+    DataArray ar(arr, 5);
+    delete ptr1;
+}
+
+//Question 4
+
+#include <iostream>
+
+using namespace std;
+
+class DataArray{
+private:
+    double* val;
+    int length;
+public:
+    DataArray(int len);
+    DataArray(double* a, int len);
+    double min();
+    double max();
+    DataArray scaleBy(double factor);
+    virtual ~DataArray();
+};
+
+DataArray::DataArray(int len)
+{
+    val = new double[len];
+}
+
+DataArray::DataArray(double* a, int len)
+{
+    val = new double[len];
+    length = len;
+    for(int i = 0; i<length; i++)
+    {
+        this->val[i] = a[i];
+        cout << a[i] << endl;
+    }
+}
+
+double DataArray::min()
+{
+    int low = val[0];
+    for(int i = 1; i<length; i++)
+    {
+        if(val[i]<low)
+            low = val[i];
+
+    }
+    return low;
+}
+
+double DataArray::max()
+{
+    int high = val[0];
+    for(int i = 1; i<length; i++)
+    {
+        if(val[i]>high)
+            high = val[i];
+    }
+    return high;
+}
+
+DataArray DataArray::scaleBy(double factor)
+{
+    double* arr = new double[length];
+    for(int i = 0; i<length; i++)
+    {
+        arr[i] = val[i];
+        arr[i]*=factor;
+        cout << arr[i] << endl;
+    }
+        return *arr;
+}
+
+DataArray::~DataArray()
+{
+    cout << "Array Deleted" << endl;
+}
+
+int main()
+{
+    double arr[] = {4, 2, 13, 12, 11};
+    DataArray *ptr1;
+    ptr1 = new DataArray(2);
+    DataArray array(arr, 5);
+    cout << array.min() << endl;
+    cout << array.max() << endl;
+    array.scaleBy(2);
+    delete ptr1;
+}
+
+//Question 5
+
+#include <iostream>
+
+using namespace std;
+
+class Phone{
+private:
+    string brand, model, state;
+    int year;
+public:
+    Phone(string manu, string mod, string sta, int yea);
+    string tempFix(Phone p);
+    void stateInfo();
+    string permaFix(Phone &p);
+    virtual ~Phone();
+};
+
+    Phone::Phone(string manu, string mod, string sta, int yea)
+    {
+        brand = manu;
+        model = mod;
+        state = sta;
+        year = yea;
+        cout << "Object Created" << endl;
+    }
+
+void    Phone::stateInfo()
+{
+    cout << state << endl;
+}
+
+string Phone::tempFix(Phone p)
+{
+    if(p.state == "Broken")
+    {
+        p.state = "Fixed";
+    }
+    return p.state;
+}
+
+string Phone::permaFix(Phone &p)
+{
+    if(p.state == "Broken")
+    {
+        p.state = "Fixed";
+    }
+    return p.state;
+}
+
+    Phone::~Phone()
+    {
+        cout << "Object " << brand << " Deleted" << endl;
+    }
+
+
+int main()
+{
+    Phone p1("Samsung", "S7", "Broken", 2017);
+    Phone p2("OnePlus", "Three", "Broken", 2017);
+    cout << "Phone State = " << p1.tempFix(p1) << endl;
+    p1.stateInfo();
+    cout << "Phone State = " << p2.permaFix(p1) << endl;
+    p2.stateInfo();
+}
+
+//The pass by value example has two deconstructors, 1 after the fix method, and one at the end of the main function.
+//The pass by reference example only has one deconstructor, at the end of the main function.
+
+//Question 6
+
+#include <iostream>
+
+using namespace std;
+
+class Point2D{
+private:
+    double x, y;
+public:
+    Point2D();
+    Point2D(double xval, double yval);
+    void print();
+    void set(Point2D p);
+    Point2D midPoint(Point2D p1);
+};
+
+Point2D::Point2D(double xval, double yval)
+{
+    x = xval;
+    y = yval;
+}
+
+void Point2D::print()
+{
+    cout << "X value = " << x << endl << "Y value = " << y << endl;
+}
+
+void Point2D::set(Point2D p)
+{
+    x = p.x;
+    y = p.y;
+}
+
+Point2D Point2D::midPoint(Point2D p1)
+{
+    double midx = (p1.x-x)/2, midy = (p1.y-y)/2;
+    cout << midx << " " << midy << endl;
+}
+
+int main()
+{
+    Point2D p(1, 2);
+    p.set(p);
+    Point2D p1(2, 4);
+    p1.print();
+    p.midPoint(p1);
+}
+//JAVA//
+
+//Question 7
+
+
+public class Point2D {
+	private double x, y;
+	
+	public Point2D()
+	{};
+	public Point2D(double xval, double yval)
+	{
+		x = xval;
+		y = yval;
+	}
+	
+	public void print()
+	{
+		System.out.println("X value =" + x + "\nY value =" + y + "\n");
+	}
+	
+	public void set(Point2D p)
+	{
+		x = p.x;
+		y = p.y;
+	}
+	
+	public Point2D midpoint(Point2D p1)
+	{
+		double midx = (p1.x-x)/2, midy = (p1.y-y)/2;
+		Point2D p2 = new Point2D(midx, midy);
+		System.out.println("" +midx + " " + midy + "\n");
+		return p2;
+	}
+	
+	public static void main(String args[])
+	{
+		Point2D p = new Point2D(1,2);
+		p.set(p);
+		Point2D p1 = new Point2D(2,4);
+		p1.print();
+		p.midpoint(p1);
+	}
+
+}
+
+//Question 8
+
+
+public class Sum {
+	public static long val = 1;
+	
+	public static long sum(int N)
+	{
+		if(N>0)
+		{
+			val = val + N;
+			N --;
+			sum(N);
+		}
+		return val;
+}
+	
+	public static void main(String args[])
+	{
+		System.out.println(sum(3));
+	}
+}
+
+//Question 9
+
+
+public class HelloArray {
+		
+		public static void string()
+		{
+		String[] s = new String[4];
+		s[0] = "Teresa Green";
+		s[1] = "Rick O'Shea";
+		s[2] = "Barry Cade";
+		s[3] = "Sam Pull";
+		
+		
+		for(int i = 0; i<s.length; i++)
+		{
+			System.out.println("Hello " + s[i] + "\n");
+		}
+		}
+		
+		public static void main(String args[])
+		{
+			string();
+		}
+		
+}
+
+//Question 10
+
+//Parent Class
+
+public class Phone {
+	protected String brand, model, state;
+	protected int year;
+	
+	public Phone(String manu, String mod, String sta, int yea)
+	{
+		brand = manu;
+		model = mod;
+		state = sta;
+		year = yea;
+	}
+	
+	public void buyNew(Phone p)
+	{
+		if(p.year<2010)
+			System.out.println("Your phone is from " + p.year + "! You Should Buy a new one!");
+	}
+	
+}
+
+//Child Class
+
+
+public class Mobile extends Phone{
+	
+	protected int screenL, screenW;
+	
+	public Mobile(String manu, String mod, String sta, int yea, int sL, int sW)
+	{
+		super(manu, mod, sta, yea);
+		screenL = sL;
+		screenW = sW;
+	}
+	
+	public void buyNew(Mobile m)
+	{
+		if(m.year<2012)
+			System.out.println("Your phone is from " + m.year + "! You Should Buy a new one!");
+	}
+	
+	public static void main(String args[])
+	{
+		Mobile m = new Mobile("Nokia", "3310", "Working", 2001, 39, 22);
+		m.buyNew(m);
+		Phone p = new Phone("Apple", "iPhone 4", "Broken", 2010);
+		p.buyNew(p);
+	}
+}
+

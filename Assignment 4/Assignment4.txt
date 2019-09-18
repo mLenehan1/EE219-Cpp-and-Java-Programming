@@ -1,0 +1,644 @@
+//Assignment4
+//Michael Lenehan
+//15410402
+
+//Question 1
+
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+#include <time.h>
+
+using namespace std;
+
+class GuessingGame
+{
+    private:
+      int n;
+    public:
+        GuessingGame(int);
+        bool guess();
+        void display();
+};
+
+GuessingGame::GuessingGame(int N)
+{
+    srand(time(NULL));
+    N = rand() %N + 1;
+    n=N;
+}
+
+void GuessingGame::display()
+{
+    cout << n;
+}
+
+bool GuessingGame::guess()
+{
+    int guess = -1;
+    while(guess !=  n)
+    {
+    cin >> guess;
+       if(n>guess)
+        cout << "Too Low" << endl;
+    else if(n<guess)
+        cout << "Too High" << endl;
+    else
+    {
+        cout << "Correct Answer" << endl;
+        return true;
+    }
+    }
+}
+int main()
+{
+    int n, guessing;
+    cout << "Choose the max number: " << endl;
+    cin >> n;
+    GuessingGame g1(n);
+    cout << "Start Guessing" << endl;
+    g1.guess();
+}
+
+//Question 2
+
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+#include <time.h>
+
+using namespace std;
+
+class GuessingGame
+{
+    private:
+      int n;
+      int counter;
+    public:
+        GuessingGame(int);
+        bool guess();
+        void display();
+};
+
+GuessingGame::GuessingGame(int N)
+{
+    srand(time(NULL));
+    counter = N+1;
+    N = rand() %N + 1;
+    n=N;
+}
+
+void GuessingGame::display()
+{
+    cout << n;
+}
+
+bool GuessingGame::guess()
+{
+    int guess = -1;
+    cout << "You have " << counter << " guesses" << endl;
+    while((guess !=  n)&&(counter>0))
+    {
+    cin >> guess;
+       if(n>guess)
+       {
+         cout << "Too Low" << endl;
+         counter--;
+         cout << "You have " << counter << " guesses remaining" << endl;
+       }
+    else if(n<guess)
+    {
+        cout << "Too High" << endl;
+        counter--;
+        cout << "You have " << counter << " guesses remaining" << endl;
+    }
+    else
+    {
+        cout << "Correct Answer" << endl;
+        return true;
+    }
+    }
+}
+int main()
+{
+    int n, guessing;
+    cout << "Choose the max number: " << endl;
+    cin >> n;
+    GuessingGame g1(n);
+    cout << "Start Guessing" << endl;
+    g1.guess();
+}
+
+//Question 3
+
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+int prefixMatch(string a, string b)
+{
+    int match = 0, i=0;
+    if(a == b)
+        match = a.size();
+    else
+    {
+     while(a[i]==b[i])
+    {
+        match++;
+        i++;
+    }
+    }
+    cout << match;
+    }
+
+int main()
+{
+    string a = ("Hello There"), b = ("Hello");
+    prefixMatch(a, b);
+}
+
+//Question 4
+
+#include <iostream>
+#include <cstring>
+#include <sstream>
+
+using namespace std;
+
+string frequentWord(string textSample)
+{
+    istringstream iss(textSample);
+    string returnWord, currentWord, compareWord;
+    int match = 0, mostFreq = 0;
+    while(iss>>currentWord)
+    {
+        istringstream iss(textSample);
+        while(iss>>compareWord)
+            {
+            if(currentWord==compareWord)
+            {
+                match++;
+            }
+            if(match>mostFreq)
+            {
+                match = mostFreq;
+                returnWord = currentWord;
+            }
+            }
+            match = 0;
+
+    }
+
+    return returnWord;
+}
+
+int main()
+{
+    string n;
+    cin >> n;
+    cout << frequentWord(n);
+}
+
+//Question 5
+
+#include <iostream>
+
+using namespace std;
+
+class Colour
+{
+protected:
+    int red = 0, green = 0, blue = 0;
+public:
+    Colour(int r, int g, int b);
+    r();
+    g();
+    b();
+    void print();
+};
+
+Colour::Colour(int R, int G, int B)
+{
+    red = R;
+    green = G;
+    blue = B;
+}
+
+Colour::r()
+{
+    return red;
+}
+
+Colour::g()
+{
+    return green;
+}
+
+Colour::b()
+{
+    return blue;
+}
+
+void Colour::print()
+{
+    cout << "(" << red << "," << green << "," << blue << ")" << endl;
+}
+int main()
+{
+    Colour c1(12, 15, 66);
+    cout << c1.r() << endl;
+    cout << c1.g() << endl;
+    cout << c1.b() << endl;
+    c1.print();
+}
+
+//Question 6
+
+#include <iostream>
+
+using namespace std;
+
+class Colour
+{
+protected:
+    int red = 0, green = 0, blue = 0;
+public:
+    Colour(int r, int g, int b);
+    r();
+    g();
+    b();
+    void print();
+};
+
+class Shape
+{
+protected:
+    Colour c;
+public:
+    Shape(int r, int g, int b);
+    void print();
+    virtual void scaleBy(double)=0;
+};
+
+Colour::Colour(int r, int g, int b)
+{
+    red = r;
+    green = g;
+    blue = b;
+}
+
+Colour::r()
+{
+    return red;
+}
+
+Colour::g()
+{
+    return green;
+}
+
+Colour::b()
+{
+    return blue;
+}
+
+void Colour::print()
+{
+    cout << "(" << red << "," << green << "," << blue << ")" << endl;
+}
+
+Shape::Shape(int r, int g, int b):c(r, g, b){}
+
+void Shape::print()
+{
+    c.print();
+}
+
+
+
+int main()
+{
+    Shape s1(12, 15, 60);
+    s1.print();
+}
+
+//Question 7
+
+#include <iostream>
+
+using namespace std;
+
+class Colour
+{
+protected:
+    int red = 0, green = 0, blue = 0;
+public:
+    Colour(int r, int g, int b);
+    r();
+    g();
+    b();
+    void print();
+};
+
+class Shape
+{
+protected:
+    Colour c;
+public:
+    Shape(int r, int g, int b);
+    void print();
+    virtual void scaleBy(double){};
+};
+
+class Circle:public Shape
+{
+private:
+    int xpos, ypos, rads;
+public:
+    Circle(int r, int g, int b, int x, int y, int rad);
+    void print();
+    void scaleBy(double);
+};
+
+Colour::Colour(int r, int g, int b)
+{
+    red = r;
+    green = g;
+    blue = b;
+}
+
+Colour::r()
+{
+    return red;
+}
+
+Colour::g()
+{
+    return green;
+}
+
+Colour::b()
+{
+    return blue;
+}
+
+void Colour::print()
+{
+    cout << "(" << red << "," << green << "," << blue << ")";
+}
+
+Shape::Shape(int r, int g, int b):c(r, g, b){}
+
+void Shape::print()
+{
+    c.print();
+}
+
+Circle::Circle(int r, int g, int b, int x ,int y, int rad):Shape(r, g, b), xpos(x), ypos(y), rads(rad)
+{}
+
+void Circle::print()
+{
+    c.print();
+    cout << "X position" << xpos << ". Y position " << ypos << "Radius Length " <<  rads << "." << endl;
+}
+
+void Circle::scaleBy(double scale)
+{
+    cout << "Radius (" << rads << ") scaled by " << scale << " = " << rads*scale << endl;
+}
+
+int main()
+{
+    Circle c1(12, 15, 60, 0, 0, 4);
+    c1.print();
+    c1.scaleBy(4);
+}
+
+//Question 8
+
+#include <iostream>
+
+using namespace std;
+
+class Colour
+{
+protected:
+    int red = 0, green = 0, blue = 0;
+public:
+    Colour(int r, int g, int b);
+    r();
+    g();
+    b();
+    void print();
+};
+
+class Shape
+{
+protected:
+    Colour c;
+public:
+    Shape(int r, int g, int b);
+    void print();
+    virtual void scaleBy(double){};
+    Colour getColour();
+};
+
+class Circle:public Shape
+{
+private:
+    int xpos, ypos, rads;
+public:
+    Circle(int r, int g, int b, int x, int y, int rad);
+    void print();
+    void scaleBy(double);
+};
+
+Colour::Colour(int r, int g, int b)
+{
+    red = r;
+    green = g;
+    blue = b;
+}
+
+Colour::r()
+{
+    return red;
+}
+
+Colour::g()
+{
+    return green;
+}
+
+Colour::b()
+{
+    return blue;
+}
+
+void Colour::print()
+{
+    cout << "(" << red << "," << green << "," << blue << ")";
+}
+
+Shape::Shape(int r, int g, int b):c(r, g, b){}
+
+void Shape::print()
+{
+    c.print();
+}
+
+Colour Shape::getColour()
+{
+    return c;
+}
+
+Circle::Circle(int r, int g, int b, int x ,int y, int rad):Shape(r, g, b), xpos(x), ypos(y), rads(rad)
+{}
+
+void Circle::print()
+{
+    c.print();
+    cout << "X position" << xpos << ". Y position " << ypos << "Radius Length " <<  rads << "." << endl;
+}
+
+void Circle::scaleBy(double scale)
+{
+    cout << "Radius (" << rads << ") scaled by " << scale << " = " << rads*scale << endl;
+}
+
+int countShapesByColour(Shape* shapes[], int size, Colour c)
+{
+    int match = 0;
+   for(int i=0; i<size; i++)
+   {
+       if(shapes[i]->getColour().r()==c.r()&&shapes[i]->getColour().g()==c.g()&&shapes[i]->getColour().b()==c.b())
+       {
+           match++;
+       }
+
+   }
+   return match;
+}
+
+int main()
+{
+    Shape* shapes[4];
+    shapes[0] = new Shape(12, 12, 12);
+    shapes[1] = new Shape(1, 1, 1);
+    shapes[2] = new Shape(2, 2, 2);
+    shapes[3] = new Shape(12,12,12);
+    Colour c1(12,12,12);
+    cout << "Matches = " << countShapesByColour(shapes, 4, c1) << endl;
+    Circle cir1(12, 15, 60, 0, 0, 4);
+    cir1.print();
+    cir1.scaleBy(4);
+}
+
+//Question 9
+
+#include <iostream>
+
+using namespace std;
+
+class Counter
+{
+protected:
+    static int count;
+    int test, counter;
+private:
+    void construct();
+public:
+    Counter(int);
+    ~Counter();
+    void display();
+};
+
+int Counter::count = 0;
+
+void Counter::construct()
+{
+    counter = count++;
+}
+Counter::Counter(int t)
+{
+    t = test;
+    construct();
+}
+
+Counter::~Counter()
+{
+    cout << "Object Deleted" << endl;
+}
+
+void Counter::display()
+{
+    cout << counter+1 << endl;
+}
+
+int main()
+{
+    Counter c1(1);
+    c1.display();
+    Counter c2(1);
+    c2.display();
+    Counter c3(1);
+    c3.display();
+}
+
+//Question 10
+
+#include <iostream>
+
+using namespace std;
+
+class Counter
+{
+protected:
+    static int count;
+    int test, counter;
+private:
+    void construct();
+public:
+    Counter(int);
+    ~Counter();
+    void display();
+    static int get();
+};
+
+int Counter::count = 0;
+
+void Counter::construct()
+{
+    counter = count++;
+}
+Counter::Counter(int t)
+{
+    t = test;
+    construct();
+}
+
+Counter::~Counter()
+{
+    cout << "Object Deleted" << endl;
+}
+
+void Counter::display()
+{
+    cout << counter+1 << endl;
+}
+
+int Counter::get()
+{
+    return count;
+}
+
+int main()
+{
+    Counter counts[3] = {Counter(1), Counter(2), Counter(3)};
+    Counter *p = &counts[0];
+    cout << p->get() << endl;
+}
+
+// Memory leak occurs when memory is not correctly deallocated. Using pointers, and the 'new' keyword means that although the object may be removed by the deconstructor, the data which is pointed to is not deallocated, and is therefore wasted.

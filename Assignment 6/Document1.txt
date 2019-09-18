@@ -1,0 +1,308 @@
+//Assignment 6
+//Michael Lenehan
+//15410502
+
+// Question 1
+
+public class reverse {
+	
+	public static String reverse(String str)
+	{
+		StringBuffer s = new StringBuffer(str);
+		s.reverse();
+		String sret = new String(s);
+		return sret;
+	}
+	
+	public static void main(String args[])
+	{
+		String s1 = "Hello World!";
+		s1 = reverse(s1);
+		System.out.println(s1);
+	}
+
+}
+
+//Question 2
+import java.util.Random;
+
+public class Array {
+	
+	public static double[] randomArray(int N)
+	{
+		double[] randArray;
+		randArray = new double[N];
+		int i;
+		for(i = 0; i<(N); i++)
+		{
+			Random randProb = new Random();
+			double rand_1 = 0.0 + randProb.nextDouble()*(3-0);
+			if(rand_1<=2)
+			{
+			Random randNum = new Random();
+			double rand = 0.0 + randNum.nextDouble() * (0.5 - 0.0);
+			randArray[i] = rand;
+			}
+			else if(rand_1>2)
+			{
+				Random randNum = new Random();
+				double rand = 0.5 + randNum.nextDouble() * (1.0-0.5);
+				randArray[i] = rand;
+			}
+			
+		}
+		
+		return randArray;
+		
+			
+	}
+	
+	public static void main(String args[])
+	{
+		double[] arr;
+		arr = randomArray(15);
+		for(int i = 0;i <15;i++)
+		System.out.println(arr[i]);
+	}
+
+}
+
+//Question 3
+
+public class toLower {
+	
+	public static int lower(String str)
+	{
+		int i = 0, count = 0;
+		if(str.length() == 0)
+		{
+			return 0;
+		}
+		else if(Character.isLowerCase(str.charAt(0))==true)
+		{
+			count++;
+			return count + lower(str.substring(1));
+		}
+		else
+			return count + lower(str.substring(1));
+	}
+	
+	public static void main(String args[])
+	{
+		String s = new String("Hello World.");
+		System.out.println(lower(s));
+	}
+
+}
+
+//Question 4
+
+The method could not chage the contents of s1, as strings cannot in Java once they are assigned a value, i.e. they are immutable. This is why a new variable must be set and returned in Question 1. Java methods also work by pass-by-value, and therefore cannot modify a variable, which is why a new variable is needed to return.
+
+//Question 5
+
+(a) Incorrect. Java is strictly pass by value. 
+(b) Correct. Java is always pass by value. References in  Java are the location in memory of an object. In Java, object references (pointers) are passed by value.
+
+//Question 6
+
+public class Student {
+	protected String name, programme_code;
+	protected int id_number, year;
+	
+	public Student(String stuName, String progCode, int stuNum, int stuYear)
+	{
+		name = stuName;
+		programme_code = progCode;
+		id_number = stuNum;
+		year = stuYear;
+	}
+	
+	public void Display()
+	{
+		System.out.println("Student Name: " + name + "\nStudent Number: " + id_number + "\nProgramme Code: " + programme_code + "\nCurrent Year: " + year);
+	}
+	
+	public static void main(String args[])
+	{
+		Student s1;
+		s1 = new Student("Michael Lenehan", "ECE", 15410402, 2);
+		s1.Display();
+	}
+}
+
+//Question 7
+
+public class Module {
+
+	protected String module_name, module_number;
+	
+	public Module(String modName, String modNum)
+	{
+		module_name = modName;
+		module_number = modNum;
+	}
+	
+	public void display()
+	{
+		System.out.println("Module Name: " + module_name + "\nModule Number: " + module_number);
+	}
+}
+
+public class UndergradStudent extends Student{
+	protected Module[] module = new Module[3];
+	protected String module_name;
+	protected int module_number;
+	
+	
+	public UndergradStudent(String stuName, String progCode, int stuNum, int stuYear, Module[] m)
+	{
+		super(stuName, progCode, stuNum, stuYear);
+		module = m;
+		
+	}
+	
+	public void Display()
+	{
+		super.Display();
+		System.out.println("\nModule List: \n");
+		for(int i = 0; i<module.length; i++)
+		{
+			module[i].display();
+		}
+	}
+	
+	public static void main(String args[])
+	{
+		Module m[];
+		m = new Module[3];
+		m[0] = new Module("Maths", "EE220");
+		m[1] = new Module("OOP", "EE219");
+		m[2] = new Module("Embedded Systems", "EE202");
+		UndergradStudent s1;
+		s1 = new UndergradStudent("Michael Lenehan", "ECE", 15410402, 2, m);
+		s1.Display();
+	}
+}
+
+//Question 8
+
+
+public class PostgradStudent extends Student{
+
+	protected String supervisor_name;
+	
+	public PostgradStudent(String stuName, String progCode, int stuNum, int stuYear, String sup_name)
+	{
+		super(stuName, progCode, stuNum, stuYear);
+		supervisor_name = sup_name;
+	}
+	
+	public void Display()
+	{
+		System.out.println("Student Name: " + name + "\nStudent Number: " + id_number + "\nProgramme Code: " + programme_code + "\nCurrent Year: " + year + "\nSupervisor_name: " + supervisor_name);
+	}
+	
+	public static void main(String args[])
+	{
+		PostgradStudent p1;
+		p1 = new PostgradStudent("Michael Lenehan", "ECE Postgrad", 15410402, 1, "John Smith");
+		p1.Display();
+	}
+}
+
+//Question 9
+
+
+public class UndergradStudent extends Student{
+	protected Module[] module = new Module[3];
+	protected String module_name;
+	protected int module_number;
+	
+	
+	public UndergradStudent(String stuName, String progCode, int stuNum, int stuYear, Module[] m)
+	{
+		super(stuName, progCode, stuNum, stuYear);
+		module = m;
+		
+	}
+	
+	public void Display()
+	{
+		super.Display();
+		System.out.println("\nModule List: \n");
+		for(int i = 0; i<module.length; i++)
+		{
+			module[i].display();
+		}
+	}
+	
+	public static void main(String args[])
+	{
+		Module m[];
+		m = new Module[3];
+		m[0] = new Module("Maths", "EE220");
+		m[1] = new Module("OOP", "EE219");
+		m[2] = new Module("Embedded Systems", "EE202");
+		Student[] sa = new Student[4];
+		sa[0] = new PostgradStudent("Michael Lenehan", "ECE Postgrad", 15410402, 1, "John Smith");
+		sa[1] = new PostgradStudent("James Jones", "ECE Postgrad", 15410503, 1, "John Smith");
+		sa[2] = new UndergradStudent("Tom Anderson", "ECE", 1542062, 2, m);
+		sa[3] = new UndergradStudent("Joe Sullivan", "ECE", 1542663, 2, m);
+		sa[0].Display();
+		sa[1].Display();
+		sa[2].Display();
+		sa[3].Display();
+	}
+}
+
+//Question 10
+
+
+public interface Printable {
+	void print();
+}
+
+
+public class Test1 implements Printable{
+	protected String str;
+	
+	public Test1(String s)
+	{
+		str = s;
+	}
+	
+	public void print()
+	{
+		System.out.println(str);
+	}
+	
+	public static void main(String args[])
+	{
+		Test1[] t = new Test1[2];
+		t[0] = new Test1("Hello?");
+		t[1] = new Test1("Who are you?");
+		t[0].print();
+		t[1].print();
+		Test2[] s = new Test2[2];
+		s[0] = new Test2("Is there Anybody Out There?");
+		s[1] = new Test2("Echo???");
+		s[0].print();
+		s[1].print();
+	}
+}
+
+
+public class Test2 implements Printable{
+	protected String str;
+	
+	public Test2(String s)
+	{
+		str = s;
+	}
+	
+	public void print()
+	{
+		System.out.println(str);
+	}
+}

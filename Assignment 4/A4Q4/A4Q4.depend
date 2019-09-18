@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1489443072 source:c:\users\michael lenehan\documents\michael\ece2\semester2\ee219\assignment 4\a4q4\main.cpp
+	<iostream>
+	<cstring>
+	<sstream>
+

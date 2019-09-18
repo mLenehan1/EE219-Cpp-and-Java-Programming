@@ -1,0 +1,100 @@
+Student No: 15410402		Course: ECE
+
+Question 1.
+
+int main()
+{
+    cout << "1.Hello world!\n2.Hello world!\n3.Hello world!\n4.Hello world!\n5.Hello world!\n6.Hello world!\n7.Hello world!\n8.Hello world!\n9.Hello world!" << endl;
+    return 0;
+}
+
+Question 2.
+
+int main()
+{
+    int x = 0, a = 2, pwr;
+    for(x=0; pwr>0; x++){
+        pwr = pow(a, x);
+        cout << pwr << endl;
+}
+}
+
+Question 3.
+
+float product(int a, int b)
+{
+    if(a==b)
+        return (a*b)*2;
+    else
+        return (a*b);
+}
+
+Question 4.
+
+void helloName(string s)
+{
+    cout << "Hello " << s << "!" << endl;
+}
+
+Question 5.
+
+string helloName(string &s)
+{
+    string u = "Hello ", v = "!";
+    s = u + s + v;
+    return s;
+}
+
+Question 6.
+
+int main()
+{
+    char s[] = "Controlling complexity is the essence of computer programming.", *p;
+    p = strtok( s, " ");
+    while (p != NULL)
+    {
+        p[0] = toupper(p[0]);
+        cout << p << std::endl;
+        p = strtok(NULL, " ");
+    }
+    }
+
+    
+Question 7.
+
+int deMorgan(bool A, bool B)
+{
+    bool AND = !A&&B, OR = !A||!B;
+    std::cout << std::boolalpha;
+    cout << AND << endl;
+    cout << OR << endl;
+    return 0;
+}
+
+Question 8.
+
+int swap(int a[],int i,int j)
+{
+    swap(a[i], a[j]);
+}
+
+Question 9.
+
+void reverse(int a[], int  length)
+{
+    int temp, i;
+    for (i = 0; i < length/2; ++i) {
+    swap(a[length-i-1], a[i]);
+    }
+}
+
+
+Question 10.
+
+a).	Each of the following should be represented by a class: Shape, Circle, Rectangle, Triangle, Colour, R, G, B, and Area. 
+b).	The Circle, Rectangle, and Triangle classes have an IS-A (inhertance) relationship with the Shape class. The R, G, and B classes have an IS-A relationship with the Colour class.
+c).	Within the Shape, Circle, Rectangle, and Triangle classes are the colour and area, which have a composition relationship with these classes. Luminance is part of a HAS-A (composition) relationship with the R, G, and B classes (as each colour has a luminance value). Scale and Position have a composition relationship with the Area class.
+d).	The Shape class is an abstract class as it does not contain all of the information required to complete the draw() function for each shape, i.e. it is incomplete and contains an abstract draw() method. The draw methos is inherited by each of the classes with an IS-A relationship with the Shape class, but must be initialised separately in each of these classes.
+e).	In each of the Circle, Rectangle, and Triangle classes, the draw() method is present. However it must be overridden in order to draw the specfic shape. The Shape class is the base class, which passes this general method to the derived classes, however they must use over-riding in order to output different shapes. Over-Loading is also used in these classes as they contain both draw() and draw(colour) methods. Given certain parameters, these methods respond differently.
+
+
